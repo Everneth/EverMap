@@ -2,7 +2,7 @@ package com.everneth.evermap;
 
 import java.io.File;
 
-import com.everneth.evermap.Commands.Commands;
+import com.everneth.evermap.commands.Commands;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
