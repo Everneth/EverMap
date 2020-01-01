@@ -1,0 +1,8 @@
+name: EverMap
+version: 0.0.1
+main: com.everneth.evermap.App
+author: lilahamstern
+commands:
+  marker:
+    description: Marker command
+    usage: /marker
