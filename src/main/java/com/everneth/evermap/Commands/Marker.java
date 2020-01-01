@@ -1,4 +1,8 @@
-package com.everneth.evermap.Commands;
+package com.everneth.evermap.commands;
+
+import com.everneth.evermap.App;
+import com.everneth.evermap.manager.DynmapManager;
+import com.everneth.evermap.utils.Utils;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,19 +12,23 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Dependency;
 import co.aikar.commands.annotation.Subcommand;
-import net.md_5.bungee.api.ChatColor;
 
 @CommandAlias("marker")
 public class Marker extends BaseCommand {
+  DynmapManager dm = DynmapManager.getDynmapManager();
 
   @Dependency
-  private Plugin plugin;
+  Plugin plugin = App.getPlugin();
 
   @Subcommand("add")
-  public void onMarker(CommandSender sender, String name, String desc) {
-
+  public void onAdd(CommandSender sender, String label, String desc) {
     Player player = (Player) sender;
-    player.sendMessage(
-        ChatColor.translateAlternateColorCodes('&', "&3This is a start for marker command &4" + name + " &8" + desc));
+    dm.addMarker(player, label, desc);
+  }
+
+  @Subcommand("remove")
+  public void onRemove(CommandSender sender, String label) {
+    Player player = (Player) sender;
+    dm.removeMarker(player, label);
   }
 }
