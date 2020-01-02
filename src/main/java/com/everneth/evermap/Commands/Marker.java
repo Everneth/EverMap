@@ -20,9 +20,9 @@ public class Marker extends BaseCommand {
   Plugin plugin = App.getPlugin();
 
   @Subcommand("add")
-  public void onAdd(CommandSender sender, String label, String desc) {
+  public void onAdd(CommandSender sender, String label) {
     Player player = (Player) sender;
-    dm.addMarker(player, label, desc);
+    dm.addMarker(player, label);
   }
 
   @Subcommand("remove")
