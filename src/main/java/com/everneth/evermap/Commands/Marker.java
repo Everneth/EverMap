@@ -2,7 +2,6 @@ package com.everneth.evermap.commands;
 
 import com.everneth.evermap.App;
 import com.everneth.evermap.manager.DynmapManager;
-import com.everneth.evermap.utils.Utils;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
