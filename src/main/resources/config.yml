@@ -7,6 +7,8 @@ dbuser: emi
 dbpass: "secret"
 
 ###############################################################################################
-#########                              --EverMap Settings--                               #########
+#########                              --EverMap Base Marker Settings--               #########
 ###############################################################################################
-marker-limits: 1
+base_set_label: "Player bases" # Label for markerset
+base_limit: 1
+base_icon: tower

@@ -1,5 +1,7 @@
 package com.everneth.evermap.manager;
 
+import java.util.UUID;
+
 import com.everneth.evermap.App;
 import com.everneth.evermap.utils.Utils;
 
@@ -21,11 +23,11 @@ public final class DynmapManager {
 
   private DynmapManager() {
     if (baseMarkerSet == null) {
-      if (markerapi.getMarkerSet("bases") != null) {
-        baseMarkerSet = markerapi.getMarkerSet("bases");
+      if (markerapi.getMarkerSet("bases") == null) {
+        baseMarkerSet = dynmap.getMarkerAPI().createMarkerSet("bases", plugin.getConfig().getString("base_set_label"),
+            null, true);
       }
-      baseMarkerSet = dynmap.getMarkerAPI().createMarkerSet("bases", "Playerbases",
-          dynmap.getMarkerAPI().getMarkerIcons(), false);
+      baseMarkerSet = markerapi.getMarkerSet("bases");
       return;
     }
   }
@@ -40,13 +42,14 @@ public final class DynmapManager {
 
   public void addMarker(Player player, String label, String desc) {
     Location loc = player.getLocation();
-    Marker marker = baseMarkerSet.createMarker(player.getName() + "_base", label, false, desc, loc.getX(), loc.getY(),
-        loc.getZ(), markerapi.getMarkerIcon("tower"), true);
+    Marker marker = baseMarkerSet.createMarker(player.getName() + label, label, true, loc.getWorld().getName(),
+        loc.getX(), loc.getY(), loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
+    marker.setDescription(desc);
+    
     player.sendMessage(Utils.color("&3This is a start for marker command &4" + marker.getMarkerID() + " &8" + desc));
   }
 
   public void removeMarker(Player player, String label) {
-
     player.sendMessage(Utils.color("&2Remove marker command"));
   }
 }
