@@ -1,7 +1,5 @@
 package com.everneth.evermap.manager;
 
-import java.util.UUID;
-
 import com.everneth.evermap.App;
 import com.everneth.evermap.utils.Utils;
 
@@ -45,7 +43,7 @@ public final class DynmapManager {
     Marker marker = baseMarkerSet.createMarker(player.getName() + label, label, true, loc.getWorld().getName(),
         loc.getX(), loc.getY(), loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
     marker.setDescription(desc);
-    
+
     player.sendMessage(Utils.color("&3This is a start for marker command &4" + marker.getMarkerID() + " &8" + desc));
   }
 
