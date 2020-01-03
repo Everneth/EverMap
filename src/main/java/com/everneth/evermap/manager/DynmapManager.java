@@ -38,12 +38,14 @@ public final class DynmapManager {
     return dm;
   }
 
-  public void addMarker(Player player, String label) {
+  public String addMarker(Player player, String label) {
     Location loc = player.getLocation();
-    Marker marker = baseMarkerSet.createMarker(player.getName() + label, label, true, loc.getWorld().getName(),
-        loc.getX(), loc.getY(), loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
+    String markerID = player.getName() + label;
+    Marker marker = baseMarkerSet.createMarker(markerID, label, true, loc.getWorld().getName(), loc.getX(), loc.getY(),
+        loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
 
     player.sendMessage(Utils.color("&3This is a start for marker command &4" + marker.getMarkerID()));
+    return markerID;
   }
 
   public void removeMarker(Player player, String label) {
