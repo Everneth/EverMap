@@ -1,0 +1,74 @@
+package com.everneth.evermap.utils;
+
+import java.util.concurrent.CompletableFuture;
+
+import com.everneth.evermap.App;
+import com.everneth.evermap.models.EMIPlayer;
+import com.everneth.evermap.models.MarkerType;
+
+import org.bukkit.plugin.Plugin;
+
+import co.aikar.idb.DB;
+import co.aikar.idb.DbRow;
+
+public class PlayerUtils {
+  private static Plugin plugin = App.getPlugin();
+
+  private static DbRow getPlayerRow(String playerName) {
+    CompletableFuture<DbRow> futurePlayer;
+    DbRow player = new DbRow();
+    futurePlayer = DB.getFirstRowAsync("SELECT * FROM players WHERE player_name = ?", playerName);
+    try {
+      player = futurePlayer.get();
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+    return player;
+  }
+
+  private static DbRow getPlayerRow(Integer id) {
+    CompletableFuture<DbRow> futurePlayer;
+    DbRow player = new DbRow();
+    futurePlayer = DB.getFirstRowAsync("SELECT * FROM players WHERE player_id = ?", id);
+    try {
+      player = futurePlayer.get();
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+    return player;
+  }
+
+  public static EMIPlayer getPlayer(String name) {
+    DbRow playerRow = getPlayerRow(name);
+    EMIPlayer player = new EMIPlayer(playerRow.getString("player_uuid"), playerRow.getString("player_name"),
+        playerRow.getInt("player_id"));
+
+    return player;
+  }
+
+  public static EMIPlayer getPlayer(Integer id) {
+    DbRow playerRow = getPlayerRow(id);
+    EMIPlayer player = new EMIPlayer(playerRow.getString("player_uuid"), playerRow.getString("player_name"),
+        playerRow.getInt("player_id"));
+
+    return player;
+  }
+
+  public static Integer getMarkerCount(Integer playerID, MarkerType type) {
+    DbRow markerRow;
+    Integer count = 0;
+
+    CompletableFuture<DbRow> markerObjectFuture = DB
+        .getFirstRowAsync("SELECT COUNT() FROM markers WHERE owned_by = ? AND type = ?", playerID, type);
+
+    try {
+      markerRow = markerObjectFuture.get();
+      count = markerRow.getInt("COUNT");
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+
+    return count;
+  }
+
+}
