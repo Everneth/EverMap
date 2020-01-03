@@ -1,41 +1,46 @@
 package com.everneth.evermap.models;
 
-import java.security.Timestamp;
+import java.sql.SQLException;
 
-enum MarkerType {
-  SHOP, BASE
-}
+import com.everneth.evermap.App;
 
-public class Marker {
+import org.jetbrains.annotations.Nullable;
+
+import co.aikar.idb.DB;
+
+public class MarkerModel {
   private String id;
   private String label;
   private EMIPlayer owned_by;
   private MarkerType type;
   private Boolean verified;
   private EMIPlayer verified_by;
-  private Timestamp verified_at;
-  private Timestamp updated_at;
 
-  public Marker(String id, String label, EMIPlayer owned_by, MarkerType type, Timestamp verified_at,
-      Timestamp updated_at) {
+  public MarkerModel(String id, String label, EMIPlayer owned_by, MarkerType type) {
     this.id = id;
     this.label = label;
     this.owned_by = owned_by;
     this.type = type;
-    this.verified_at = verified_at;
-    this.updated_at = updated_at;
   }
 
-  public Marker(String id, String label, EMIPlayer owned_by, MarkerType type, Boolean verified, EMIPlayer verified_by,
-      Timestamp verified_at, Timestamp updated_at) {
+  public MarkerModel(String id, String label, EMIPlayer owned_by, MarkerType type, Boolean verified,
+      @Nullable EMIPlayer verified_by) {
     this.id = id;
     this.label = label;
     this.owned_by = owned_by;
     this.type = type;
     this.verified = verified;
     this.verified_by = verified_by;
-    this.verified_at = verified_at;
-    this.updated_at = updated_at;
+  }
+
+  public void Insert() {
+    try {
+      DB.executeInsert(
+          "INSERT INTO markers (id, label, owned_by, type, verified, verified_by) \n" + "VALUES(?,?,?,?,?,?)", id,
+          label, owned_by.getId(), type, verified, verified_by.getId());
+    } catch (SQLException e) {
+      App.getPlugin().getLogger().warning(e.getMessage());
+    }
   }
 
   public String getID() {
