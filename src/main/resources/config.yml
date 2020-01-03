@@ -7,8 +7,14 @@ dbuser: emi
 dbpass: "secret"
 
 ###############################################################################################
+#########                      --EverMap General Marker Settings--                    #########
+###############################################################################################
+label_max_length: 20 #Max 50
+label_min_length: 2
+
+###############################################################################################
 #########                              --EverMap Base Marker Settings--               #########
 ###############################################################################################
-base_set_label: "Player bases" # Label for markerset
+base_set_label: "Player bases" # Label for markerset, if you want to update edit dynmap marker.yml
 base_limit: 1
 base_icon: tower
