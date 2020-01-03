@@ -1,5 +1,7 @@
 package com.everneth.evermap.manager;
 
+import java.util.UUID;
+
 import com.everneth.evermap.App;
 import com.everneth.evermap.utils.Utils;
 
@@ -40,7 +42,7 @@ public final class DynmapManager {
 
   public String addMarker(Player player, String label) {
     Location loc = player.getLocation();
-    String markerID = player.getName() + label;
+    String markerID = UUID.randomUUID().toString();
     Marker marker = baseMarkerSet.createMarker(markerID, label, true, loc.getWorld().getName(), loc.getX(), loc.getY(),
         loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
 
