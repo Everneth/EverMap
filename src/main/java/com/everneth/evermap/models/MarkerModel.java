@@ -37,7 +37,7 @@ public class MarkerModel {
     try {
       DB.executeInsert(
           "INSERT INTO markers (id, label, owned_by, type, verified, verified_by) \n" + "VALUES(?,?,?,?,?,?)", id,
-          label, owned_by.getId(), type, verified, verified_by.getId());
+          label, owned_by.getId(), type.getValue(), verified, verified_by.getId());
     } catch (SQLException e) {
       App.getPlugin().getLogger().warning(e.getMessage());
     }
