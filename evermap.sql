@@ -16,3 +16,15 @@ CREATE TABLE IF NOT EXISTS `markers` (
   CONSTRAINT `fk_markers_owned_by_players` FOREIGN KEY (`owned_by`) REFERENCES `players` (`player_id`),
   CONSTRAINT `fk_markers_verified_by_players` FOREIGN KEY (`verified_by`) REFERENCES `players` (`player_id`)
 );
+
+INSERT INTO
+  markers (
+    `id`,
+    `label`,
+    `owned_by`,
+    `type`,
+    `verified`,
+    `verified_by`
+  )
+VALUES
+  (1, "This is a test label", 1, "base", 1, 3);
