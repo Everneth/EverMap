@@ -7,6 +7,7 @@ import com.everneth.evermap.utils.Utils;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
 import org.bukkit.plugin.Plugin;
 import org.dynmap.DynmapAPI;
 import org.dynmap.markers.Marker;
@@ -46,8 +47,7 @@ public final class DynmapManager {
     Marker marker = baseMarkerSet.createMarker(markerID, label, true, loc.getWorld().getName(), loc.getX(), loc.getY(),
         loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
 
-    player.sendMessage(Utils.color("&3This is a start for marker command &4" + marker.getMarkerID()));
-    return markerID;
+    return marker.getMarkerID();
   }
 
   public void removeMarker(Player player, String label) {
