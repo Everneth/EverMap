@@ -58,12 +58,12 @@ public class PlayerUtils {
     DbRow markerRow;
     Integer count = 0;
 
-    CompletableFuture<DbRow> markerObjectFuture = DB
-        .getFirstRowAsync("SELECT COUNT() FROM markers WHERE owned_by = ? AND type = ?", playerID, type);
+    CompletableFuture<DbRow> markerObjectFuture = DB.getFirstRowAsync(
+        "SELECT COUNT(id) AS count FROM markers WHERE owned_by = ? AND type = ?", playerID, type.getValue());
 
     try {
       markerRow = markerObjectFuture.get();
-      count = markerRow.getInt("COUNT");
+      count = markerRow.getInt("count");
     } catch (Exception e) {
       plugin.getLogger().warning(e.getMessage());
     }
