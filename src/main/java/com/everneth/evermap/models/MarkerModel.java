@@ -43,6 +43,14 @@ public class MarkerModel {
     }
   }
 
+  public static void Delete(String id) {
+    try {
+      DB.executeUpdate("DELETE FROM markers WHERE id = ?", id);
+    } catch (Exception e) {
+      App.getPlugin().getLogger().warning(e.getMessage());
+    }
+  }
+
   public String getID() {
     return id;
   }

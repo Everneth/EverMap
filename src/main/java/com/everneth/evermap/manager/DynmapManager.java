@@ -3,6 +3,7 @@ package com.everneth.evermap.manager;
 import java.util.UUID;
 
 import com.everneth.evermap.App;
+import com.everneth.evermap.models.MarkerModel;
 import com.everneth.evermap.utils.Utils;
 
 import org.bukkit.Location;
@@ -51,7 +52,10 @@ public final class DynmapManager {
     return marker.getMarkerID();
   }
 
-  public void removeMarker(Player player, String label) {
-    player.sendMessage(Utils.color("&2Remove marker command"));
+  public void removeMarker(Player player, String id) {
+    Marker marker = baseMarkerSet.findMarker(id);
+    marker.deleteMarker();
+    MarkerModel.Delete(id);
+    player.sendMessage(Utils.color(plugin.getConfig().getString("marker_deleted")));
   }
 }

@@ -61,10 +61,16 @@ public class Marker extends BaseCommand {
   public class Remove extends BaseCommand {
 
     @Subcommand("base")
-    @Syntax("<id|name>")
+    @Syntax("<name> - Marker name")
     public void onRemove(CommandSender sender, String label) {
       Player player = (Player) sender;
-      dm.removeMarker(player, label);
+      EMIPlayer emiPlayer = PlayerUtils.getPlayer(player.getName());
+      DbRow marker = PlayerUtils.getMarker(emiPlayer.getId(), label);
+      if (marker == null) {
+        player.sendMessage(Utils.color(plugin.getConfig().getString("marker_not_found")));
+        return;
+      }
+      dm.removeMarker(player, marker.getString("id"));
     }
   }
 
