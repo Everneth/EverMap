@@ -86,4 +86,14 @@ public class PlayerUtils {
     return markerList;
   }
 
+  public static DbRow getMarker(Integer playerID, String label) {
+    DbRow marker = new DbRow();
+    try {
+      marker = DB.getFirstRowAsync("SELECT id FROM markers WHERE owned_by = ? AND label = ?", playerID, label).get();
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+    return marker;
+  }
+
 }
