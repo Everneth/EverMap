@@ -41,12 +41,13 @@ public final class DynmapManager {
     return dm;
   }
 
-  public String addMarker(Player player, String label) {
+  public String addMarker(Player player, String label, String desc) {
     Location loc = player.getLocation();
     String markerID = UUID.randomUUID().toString();
-    Marker marker = baseMarkerSet.createMarker(markerID, label, true, loc.getWorld().getName(), loc.getX(), loc.getY(),
-        loc.getZ(), markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
-
+    Marker marker = baseMarkerSet.createMarker(markerID, player.getName() + " - " + label, true,
+        loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ(),
+        markerapi.getMarkerIcon(plugin.getConfig().getString("base_icon")), true);
+    marker.setDescription(desc);
     return marker.getMarkerID();
   }
 
