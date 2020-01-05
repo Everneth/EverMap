@@ -1,5 +1,7 @@
 package com.everneth.evermap.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.everneth.evermap.App;
@@ -69,6 +71,19 @@ public class PlayerUtils {
     }
 
     return count;
+  }
+
+  public static List<DbRow> getMarkerList(Integer playerID, MarkerType type) {
+    List<DbRow> markerList = new ArrayList<DbRow>();
+
+    try {
+      markerList = DB.getResultsAsync("SELECT label, verified FROM markers WHERE owned_by = ? AND type = ?", playerID,
+          type.getValue()).get();
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+
+    return markerList;
   }
 
 }
