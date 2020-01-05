@@ -22,13 +22,13 @@ public class ComponentManager {
   }
 
   public static TextComponent createMarkerLocationComponent(Location loc) {
-    TextComponent tc = new TextComponent();
-    tc.setText("[Marker]");
+    TextComponent tc = new TextComponent(
+        TextComponent.fromLegacyText(plugin.getConfig().getString("marker_added_text_component")));
     tc.setBold(true);
-    tc.setColor(ChatColor.AQUA);
     tc.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://" + plugin.getConfig().getString("dynmap_url")
-        + "/?x=" + loc.getX() + "y=" + loc.getY() + "&z=" + loc.getZ() + "&zoom=100"));
-    tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Marker location").create()));
+        + "/?x=" + loc.getX() + "y=" + loc.getY() + "&z=" + loc.getZ() + "&zoom=10"));
+    tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+        new ComponentBuilder(plugin.getConfig().getString("marker_added_text_component_desc")).create()));
 
     return tc;
   }
