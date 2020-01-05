@@ -24,5 +24,13 @@ base_icon: tower
 #########                              --EverMap Messages            --               #########
 ###############################################################################################
 
+# General messages
+marker_added_text: "§1Marker got added §aSuccessfully "
+marker_added_text_component: "§3[§4Marker§3]"
+marker_added_text_component_desc: "§7Marker location"
+
+marker_not_found: "&4Marker could not be found!"
+marker_deleted: "&6Marker got deleted!"
+
 # Base messages
-base_limit_reach: "&2 Base limit is reached fuck off &4<3"
+base_limit_reach: "&4 Base limit is reached fuck off &8<3"
