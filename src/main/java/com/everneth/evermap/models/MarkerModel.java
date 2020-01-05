@@ -13,7 +13,7 @@ public class MarkerModel {
   private String label;
   private EMIPlayer owned_by;
   private MarkerType type;
-  private Boolean verified;
+  private Integer verified;
   private EMIPlayer verified_by;
 
   public MarkerModel(String id, String label, EMIPlayer owned_by, MarkerType type) {
@@ -23,7 +23,7 @@ public class MarkerModel {
     this.type = type;
   }
 
-  public MarkerModel(String id, String label, EMIPlayer owned_by, MarkerType type, Boolean verified,
+  public MarkerModel(String id, String label, EMIPlayer owned_by, MarkerType type, Integer verified,
       @Nullable EMIPlayer verified_by) {
     this.id = id;
     this.label = label;
@@ -75,11 +75,11 @@ public class MarkerModel {
     this.type = type;
   }
 
-  public Boolean getVerified() {
+  public Integer getVerified() {
     return this.verified;
   }
 
-  public void setVerified(Boolean verified) {
+  public void setVerified(Integer verified) {
     this.verified = verified;
   }
 
