@@ -39,8 +39,7 @@ public class Marker extends BaseCommand {
       Player player = (Player) sender;
       EMIPlayer emiPlayer = PlayerUtils.getPlayer(player.getName());
 
-      Integer count = PlayerUtils.getMarkerCount(emiPlayer.getId(), MarkerType.BASE);
-      if (count >= plugin.getConfig().getInt("base_limit")) {
+      if (PlayerUtils.markerLimitReach(emiPlayer.getId(), MarkerType.BASE)) {
         player.sendMessage(Utils.color(plugin.getConfig().getString("base_limit_reach")));
         return;
       }

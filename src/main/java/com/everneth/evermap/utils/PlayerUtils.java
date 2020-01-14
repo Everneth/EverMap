@@ -96,4 +96,12 @@ public class PlayerUtils {
     return marker;
   }
 
+  public static Boolean markerLimitReach(Integer playerID, MarkerType type) {
+    if (getMarkerCount(playerID, type) >= plugin.getConfig().getInt("base_limit")) {
+      return false;
+    }
+
+    return true;
+  }
+
 }
