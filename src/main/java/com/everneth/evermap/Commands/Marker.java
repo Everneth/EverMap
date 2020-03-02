@@ -37,7 +37,7 @@ public class Marker extends BaseCommand {
     @Syntax("<name> <description> - Marker name and description (Optional)")
     public void onBaseAdd(CommandSender sender, String label, @Optional String desc) {
       Player player = (Player) sender;
-      EMIPlayer emiPlayer = PlayerUtils.getPlayer(player.getName());
+      EMIPlayer emiPlayer = PlayerUtils.getPlayer(player.getUniqueId());
 
       if (PlayerUtils.markerLimitReach(emiPlayer.getId(), MarkerType.BASE)) {
         player.sendMessage(Utils.color(plugin.getConfig().getString("base_limit_reach")));

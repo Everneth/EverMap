@@ -2,6 +2,7 @@ package com.everneth.evermap.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import com.everneth.evermap.App;
@@ -40,8 +41,21 @@ public class PlayerUtils {
     return player;
   }
 
+  private static DbRow getPlayerRow(UUID uuid) {
+    CompletableFuture<DbRow> futurePlayer;
+    DbRow player = new DbRow();
+    futurePlayer = DB.getFirstRowAsync("SELECT * FROM players WHERE player_uuid = ?", uuid.toString());
+    try {
+      player = futurePlayer.get();
+    } catch (Exception e) {
+      plugin.getLogger().warning(e.getMessage());
+    }
+    return player;
+  }
+
   public static EMIPlayer getPlayer(String name) {
     DbRow playerRow = getPlayerRow(name);
+    System.out.print(playerRow);
     EMIPlayer player = new EMIPlayer(playerRow.getString("player_uuid"), playerRow.getString("player_name"),
         playerRow.getInt("player_id"));
 
@@ -56,7 +70,15 @@ public class PlayerUtils {
     return player;
   }
 
-  public static Integer getMarkerCount(Integer playerID, MarkerType type) {
+  public static EMIPlayer getPlayer(UUID uuid) {
+    DbRow playerRow = getPlayerRow(uuid);
+    EMIPlayer player = new EMIPlayer(playerRow.getString("player_uuid"), playerRow.getString("player_name"),
+        playerRow.getInt("player_id"));
+
+    return player;
+  }
+
+  public static int getMarkerCount(Integer playerID, MarkerType type) {
     DbRow markerRow;
     Integer count = 0;
 
@@ -97,7 +119,7 @@ public class PlayerUtils {
   }
 
   public static Boolean markerLimitReach(Integer playerID, MarkerType type) {
-    if (getMarkerCount(playerID, type) >= plugin.getConfig().getInt("base_limit")) {
+    if (getMarkerCount(playerID, type) <= plugin.getConfig().getInt("base_limit")) {
       return false;
     }
 
