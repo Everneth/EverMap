@@ -51,6 +51,7 @@ public class App extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        DB.close();
         getLogger().info("EverMap is stopped!");
     }
 
